@@ -1,3 +1,4 @@
+'use strict';
 // var http = require('http'); // Esto es con ComonJS
 import http from 'http'; // Esto es con ESModules
 
