@@ -27,23 +27,44 @@ function escribeTrasDosSegundos(texto, callback) {
 
 // Llamarla dos veces (texto1 y texto2. Deben salir los textos con sus pausas correspondientes.
 
-escribeTrasDosSegundos('Texto 1', function () {
-    escribeTrasDosSegundos('Texto 2', function () {
-        escribeTrasDosSegundos('Texto 3', function () {
-            escribeTrasDosSegundos('Texto 4', function () {
-                escribeTrasDosSegundos('Texto 5', function () {
-                    console.log('Fin!');
-                });
-            });
-        });
-    });
-});
+// escribeTrasDosSegundos('Texto 1', function () {
+//     escribeTrasDosSegundos('Texto 2', function () {
+//         escribeTrasDosSegundos('Texto 3', function () {
+//             escribeTrasDosSegundos('Texto 4', function () {
+//                 escribeTrasDosSegundos('Texto 5', function () {
+//                     console.log('Fin!');
+//                 });
+//             });
+//         });
+//     });
+// });
 
 // Y si me lo piden 5 veces?
 
 
 // TODO:
 // Repitamos la llamada a escribeTras2Segundos varias veces ejecutar un total de N veces?
+// Al finalizar escribe por consola "Final"
 // Es posible con callbacks?
+
+function serie(n, param, funcionCB, cbFinal) {
+    if (n === 0) {
+        // Queremos poder configurar esta acción final
+        cbFinal();
+        return;
+    };
+    // N veces tiene que llamar a la función que le digamos
+    funcionCB(param, () => {
+        serie(n-1, param, funcionCB, cbFinal)
+    })
+};
+
+serie(5, 'texto de la función final', escribeTrasDosSegundos, () => {
+    console.log("Final");
+    // console log de "Final"
+    serie(2, 'texto de la función end', escribeTrasDosSegundos, () => {
+        console.log("End");
+    }); // End
+}); 
 
 
