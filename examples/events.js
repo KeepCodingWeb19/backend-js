@@ -15,4 +15,19 @@ eventEmitter.emit('customEvent');
 // TODO: Crea un listener para ese evento Mayoria
 // TODO: el bucle debe ejecutarse 10 veces
 
+let n = 0;
+const interval = setInterval(() => {
+    const random = Math.random();
+    if (random > 0.5) {
+        n++;
+        eventEmitter.emit('Mayoria');
+    }
+    if (n === 2) {
+        // clearInterval(interval);
+        process.exit(0);
+    };
+}, 1000);
 
+eventEmitter.on('Mayoria', () => {
+    console.log('Es mayoría!!');
+});
