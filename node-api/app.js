@@ -1,5 +1,6 @@
 import express from 'express';
 import morgan from 'morgan';
+import { renderFile } from 'ejs';
 
 // Middlewares
 import { filterAdminPath, filterFirefox } from './lib/middlewares/authMiddleware.js';
@@ -11,6 +12,9 @@ import { router } from './routes/webRoutes.js';
 const app = express();
 
 app.use(express.static('public'));
+app.set('view engine', 'ejs');
+app.engine('html', renderFile); // Con esto podemos escrivir nuestros templates con extensión .html
+app.set('views', './views');
 
 // 3rd Party Middlewares
 app.use(morgan('dev'));

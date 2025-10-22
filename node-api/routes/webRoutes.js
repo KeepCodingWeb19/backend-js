@@ -17,13 +17,18 @@ router.get('/', (req, res, next) => {
     const env = process.env.NODE_ENV;
     const now = (new Date()).toLocaleString();
     const lang = process.env.LANG;
-    console.log(process.env);
-    res.status(200).send(`
-        <h1>Server Node.js</h1>
-        <p>Author: KeepCoding Web Bootcamp XIX</p>
-        <p>Environment: ${env} | Date: ${now}</p>
-        <p>Lang: ${lang}</p>
-    `);
+    //console.log(process.env);
+    // res.status(200).send(`
+    //     <h1>Server Node.js</h1>
+    //     <p>Author: KeepCoding Web Bootcamp XIX</p>
+    //     <p>Environment: ${env} | Date: ${now}</p>
+    //     <p>Lang: ${lang}</p>
+    // `);
+    res.render('home.html', {
+        env,
+        now,
+        lang,
+    });
 });
 
 router.get('/comming-son', (req, res, next) => {
