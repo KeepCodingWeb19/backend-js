@@ -1,5 +1,8 @@
 import express from 'express';
 
+// Middlewares
+import { filterAdminPath, filterFirefox } from './lib/middlewares/authMiddleware.js';
+
 const app = express();
 
 app.use((req, res, next) => {
@@ -28,23 +31,9 @@ app.use((req, res, next) => {
 });
 
 // TODO: Filtrar todas las peticiones a /admin -> 403
-app.use((req, res, next) => {
-    if (req.url.startsWith('/admin')) {
-        return res.status(403).send("Forbidden Access to /admin path");
-    }
-    next();
-});
-
+app.use(filterAdminPath);
 // TODO: Rechaza todas las peticiones que vengan desde un navegador Firefox
-app.use((req, res, next) => {
-    // Forbidden for firefox users
-    if (
-        req.headers['user-agent'] && req.headers['user-agent'].includes('Firefox')
-    ) {
-        return res.status(403).send("Forbidden for Firefox users");
-    }
-    next();
-});
+app.use(filterFirefox);
 
 
 app.get('/', (req, res, next) => {
