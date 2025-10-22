@@ -3,7 +3,10 @@ import express from 'express';
 export const router = express.Router();
 
 router.get('/welcome', (req, res, next) => {
-    res.status(200).send("Bienvenido a nuestro servidor desde welcome");
+    res.status(200).send(`
+        <h1>Bienvenido a nuestro servidor</h1>
+        <p>Este servidor esta escrito con node.js</p>
+    `);
 });
 
 router.get('/about', (req, res, next) => {
@@ -11,6 +14,22 @@ router.get('/about', (req, res, next) => {
 });
 
 router.get('/', (req, res, next) => {
-    res.status(200).send("Bienvenido a nuestro servidor!!");
+    const env = process.env.NODE_ENV;
+    const now = (new Date()).toLocaleString();
+    const lang = process.env.LANG;
+    console.log(process.env);
+    res.status(200).send(`
+        <h1>Server Node.js</h1>
+        <p>Author: KeepCoding Web Bootcamp XIX</p>
+        <p>Environment: ${env} | Date: ${now}</p>
+        <p>Lang: ${lang}</p>
+    `);
+});
+
+router.get('/comming-son', (req, res, next) => {
+    res.status(200).send(`
+        <h1>Coming Son</h1>
+        <p>Este servidor estará disponible proximamente</p>
+    `);
 });
 
