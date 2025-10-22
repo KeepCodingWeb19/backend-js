@@ -10,6 +10,8 @@ import { router } from './routes/webRoutes.js';
 
 const app = express();
 
+app.use(express.static('public'));
+
 // 3rd Party Middlewares
 app.use(morgan('dev'));
 
