@@ -30,6 +30,12 @@ app.use((req, res, next) => {
     next();
 });
 
+// Setting Environment
+app.use((req, res, next) => {
+    res.locals.env = process.env.NODE_ENV;
+    next();
+});
+
 app.use((req, res, next) => {
     // res.status(403).send("Access forbidden");
     next();

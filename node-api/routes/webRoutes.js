@@ -14,10 +14,10 @@ router.get('/about', (req, res, next) => {
 });
 
 router.get('/', (req, res, next) => {
-    const env = process.env.NODE_ENV;
+    // const env = process.env.NODE_ENV;
     const now = (new Date()).toLocaleString();
     const lang = process.env.LANG;
-    //console.log(process.env);
+    console.log(process.env);
     // res.status(200).send(`
     //     <h1>Server Node.js</h1>
     //     <p>Author: KeepCoding Web Bootcamp XIX</p>
@@ -25,16 +25,19 @@ router.get('/', (req, res, next) => {
     //     <p>Lang: ${lang}</p>
     // `);
     res.render('home.html', {
-        env,
-        now,
-        lang,
+        title: 'KeeepCoding Web Bootcamp XIX',
+        message: 'We\'re Coming Soon...',
     });
 });
 
 router.get('/comming-son', (req, res, next) => {
-    res.status(200).send(`
-        <h1>Coming Son</h1>
-        <p>Este servidor estará disponible proximamente</p>
-    `);
+    // res.status(200).send(`
+    //     <h1>Coming Son</h1>
+    //     <p>Este servidor estará disponible proximamente</p>
+    // `);
+    res.render('home.html', {
+        title: 'KeeepCoding Web Bootcamp XIX',
+        message: 'We\'re Coming Soon...',
+    });
 });
 
