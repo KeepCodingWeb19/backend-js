@@ -37,11 +37,15 @@ app.use(filterFirefox);
 
 
 app.get('/', (req, res, next) => {
-    res.send('Hello world!!!');
+    throw new Error("Fatal Error");
+    // res.send('Hello world!!!');
 });
 
-
-
+// Todo: refactorizar los handler de errores a /lib/middlewares/errorMiddleware.js
+app.use((error, req, res, next) => {
+    console.error("Fatal Error!!!!!: ", error.message);
+    res.status(500).send("Internal Server Error");
+});
 
 // 404 Error Handler
 // Este debe ser el último middleware
