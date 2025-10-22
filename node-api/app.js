@@ -2,6 +2,8 @@ import express from 'express';
 
 // Middlewares
 import { filterAdminPath, filterFirefox } from './lib/middlewares/authMiddleware.js';
+import { serverErrorHandler, notFoundErrorHandler } from './lib/middlewares/errorMiddleware.js';
+
 
 const app = express();
 
@@ -30,27 +32,22 @@ app.use((req, res, next) => {
     next();
 });
 
-// TODO: Filtrar todas las peticiones a /admin -> 403
+/**
+ * Filter middlewares
+ */
 app.use(filterAdminPath);
-// TODO: Rechaza todas las peticiones que vengan desde un navegador Firefox
 app.use(filterFirefox);
 
-
-app.get('/', (req, res, next) => {
-    throw new Error("Fatal Error");
-    // res.send('Hello world!!!');
-});
-
-// Todo: refactorizar los handler de errores a /lib/middlewares/errorMiddleware.js
-app.use((error, req, res, next) => {
-    console.error("Fatal Error!!!!!: ", error.message);
-    res.status(500).send("Internal Server Error");
-});
-
+/**
+ * Error Handlers
+ */
+// app.get('/', (req, res, next) => {
+//     throw new Error("Fatal Error");
+//     // res.send('Hello world!!!');
+// });
+app.use(serverErrorHandler);
 // 404 Error Handler
 // Este debe ser el último middleware
-app.use((req, res, next) => {
-    res.status(404).send("Route not found :(");
-});
+app.use(notFoundErrorHandler);
 
 export default app;
