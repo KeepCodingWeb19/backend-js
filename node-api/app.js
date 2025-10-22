@@ -1,4 +1,5 @@
 import express from 'express';
+import morgan from 'morgan';
 
 // Middlewares
 import { filterAdminPath, filterFirefox } from './lib/middlewares/authMiddleware.js';
@@ -7,9 +8,12 @@ import { serverErrorHandler, notFoundErrorHandler } from './lib/middlewares/erro
 
 const app = express();
 
+// 3rd Party Middlewares
+app.use(morgan('dev'));
+
 app.use((req, res, next) => {
     // Si algún middlewere no llama a next() la petición se queda congelada.
-    console.log("Soy un middlewere");
+    // console.log("Soy un middlewere");
     // res.send("Hola mundo");
     next();
 });
