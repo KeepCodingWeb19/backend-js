@@ -7,7 +7,8 @@ import { filterAdminPath, filterFirefox } from './lib/middlewares/authMiddleware
 import { serverErrorHandler, notFoundErrorHandler } from './lib/middlewares/errorMiddleware.js';
 
 // Routes
-import { router } from './routes/webRoutes.js';
+import { router as webRouter } from './routes/webRoutes.js';
+import { router as apiRouter } from './routes/apiRoutes.js';
 
 const app = express();
 
@@ -65,7 +66,8 @@ app.use(filterFirefox);
 /**
  * Routes
  ********/
-app.use('/', router);
+app.use('/', webRouter);
+app.use('/api', apiRouter);
 
 
 /**
