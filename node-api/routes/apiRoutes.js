@@ -45,3 +45,30 @@ router.get('/redirect', (req, res, next) => {
 router.get('/end', (req, res, next) => {
     res.end();
 });
+
+// router.get('/params/:id', (req, res, next) => {
+//     const id = req.params.id;
+//     console.log(id);
+//     res.status(200).json({ id })
+// });
+
+router.get('/params/{:id}', (req, res, next) => {
+    const id = req.params.id;
+    console.log('params', id);
+    res.status(200).json({
+        status: 200,
+        params: req.params.id || null,
+    })
+});
+
+router.get('/params/paginated', (req, res, next) => {
+    res.status(200).json({
+        data: "Endpoint paginated"
+    })
+})
+
+router.get('/params/:company/:username', (req, res, next) => {
+    console.table(req.params);
+    res.status(200).json(req.params);
+})
+
