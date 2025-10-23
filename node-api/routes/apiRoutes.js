@@ -3,6 +3,7 @@ import express from 'express';
 // Controllers
 import { healthCall } from '../controllers/healthController.js';
 import { getDemo, getDownload, getEnd, getFile, getOneParamOptional, getRedirect, getTwoParams } from '../controllers/demoController.js';
+import { userController } from '../controllers/userController.js';
 
 export const router = express.Router();
 
@@ -19,3 +20,8 @@ router.get('/end', getEnd);
 router.get('/params/{:id}', getOneParamOptional);
 router.get('/params/:company/:username', getTwoParams);
 
+// Users
+// /api/users -> Devuelve todos los usuarios
+router.get('/users', userController.getAll);
+// Como hacemos para tener un unico usuario?
+router.get('/users/:id', userController.getOneById);
