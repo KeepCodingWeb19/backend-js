@@ -5,6 +5,9 @@ export const router = express.Router();
 
 // Health endpoint
 router.get(['/health', '/ping'], (req, res, next) => {
+    // TODO: me gustaria informar
+    // - cuanto tiempo lleva mi proceso activo?
+    // - que versión de mi aplicación estoy corriendo?
     res.status(200).json({
         status: 'Server Online'
     });
