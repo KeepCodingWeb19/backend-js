@@ -3,7 +3,35 @@ import users from '../users.json' with { type: 'json' };
 export const userController = {
 
     getAll: (req, res, next) => {
-        res.status(200).json(users);
+        let retUsers = users;
+
+        // Filtrar todos los usuarios por su rol
+        if ( req.query.role ) {
+            retUsers = users.filter( u => u.role === req.query.role );
+        }
+
+        // TODO: Paginación del resultado
+        // Mediante un parametro skip, nos saltamos los primeros
+        // Mediante un parametro limit, decidimos cuantos queremos
+        if ( req.query.skip ) {
+            retUsers = retUsers.slice(skip);
+        }
+
+        if ( req.query.limit ) {
+            retUsers = retUsers.slice(0, limit);
+        }
+
+        // if ( req.query.skip || req.query.limit ) { // TODO: revisar
+        //     const skip = req.query.skip || 0;
+        //     const limit = req.query.limit;
+        //     console.log(skip, limit);
+        //     retUsers = retUsers.slice(
+        //         skip,
+        //         limit ? skip + limit : undefined
+        //     )
+        // }
+
+        res.status(200).json(retUsers);
     },
 
     getOneById: (req, res, next) => {
@@ -31,5 +59,7 @@ export const userController = {
         res.status(200).json(
             userFind
         );
-    }
+    },
+
+
 }
