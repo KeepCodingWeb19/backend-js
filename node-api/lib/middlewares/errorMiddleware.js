@@ -10,7 +10,7 @@ export function serverErrorHandler(error, req, res, next) {
             }
         );
     } else {
-        res.status(500).send('Internal server error');
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 
@@ -24,7 +24,7 @@ export function notFoundErrorHandler(req, res, next) {
             }
         );
     } else {
-        res.status(404).send('Resource not found');
+        res.status(404).json({ error: 'Resource not found' });
     }
     
 }

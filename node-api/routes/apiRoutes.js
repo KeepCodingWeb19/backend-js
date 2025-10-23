@@ -1,15 +1,22 @@
 import express from 'express';
 import path from 'path';
 
+import packageJson from '../package.json' with { type: 'json' };
+
 export const router = express.Router();
 
 // Health endpoint
 router.get(['/health', '/ping'], (req, res, next) => {
     // TODO: me gustaria informar
+    const uptime = process.uptime();
+
     // - cuanto tiempo lleva mi proceso activo?
     // - que versión de mi aplicación estoy corriendo?
     res.status(200).json({
-        status: 'Server Online'
+        status: 'Server Online',
+        uptime: `${uptime.toFixed(2)}s`,
+        // info: require('../package.json').version // CommonJS es valido
+        version: packageJson.version,
     });
 });
 
