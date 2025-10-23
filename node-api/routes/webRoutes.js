@@ -17,8 +17,7 @@ router.get('/', (req, res, next) => {
     // const env = process.env.NODE_ENV;
     const now = (new Date()).toLocaleString();
     const lang = process.env.LANG;
-    console.log(process.env);
-    throw new Error("error custom");
+    // console.table(req.headers);
     // res.status(200).send(`
     //     <h1>Server Node.js</h1>
     //     <p>Author: KeepCoding Web Bootcamp XIX</p>
