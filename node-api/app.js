@@ -12,6 +12,8 @@ import { router as apiRouter } from './routes/apiRoutes.js';
 
 const app = express();
 
+app.use(express.json());
+
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.engine('html', renderFile); // Con esto podemos escrivir nuestros templates con extensión .html

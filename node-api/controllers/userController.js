@@ -10,26 +10,28 @@ export const userController = {
             retUsers = users.filter( u => u.role === req.query.role );
         }
 
-        // TODO: Paginación del resultado
         // Mediante un parametro skip, nos saltamos los primeros
         // Mediante un parametro limit, decidimos cuantos queremos
-        if ( req.query.skip ) {
-            retUsers = retUsers.slice(skip);
-        }
-
-        if ( req.query.limit ) {
-            retUsers = retUsers.slice(0, limit);
-        }
-
-        // if ( req.query.skip || req.query.limit ) { // TODO: revisar
-        //     const skip = req.query.skip || 0;
-        //     const limit = req.query.limit;
-        //     console.log(skip, limit);
-        //     retUsers = retUsers.slice(
-        //         skip,
-        //         limit ? skip + limit : undefined
-        //     )
+        // if ( req.query.skip ) {
+        //     retUsers = retUsers.slice(skip);
         // }
+
+        // if ( req.query.limit ) {
+        //     retUsers = retUsers.slice(0, limit);
+        // }
+
+        if ( req.query.skip || req.query.limit ) {
+            // Recordad que los query params son strings
+            // Hay que convertirlos a números
+            // parseInt
+            const skip = parseInt(req.query.skip) || 0;
+            const limit = parseInt(req.query.limit);
+            console.log(skip, limit);
+            retUsers = retUsers.slice(
+                skip,
+                isNaN(limit) ? undefined : skip + limit
+            );
+        }
 
         res.status(200).json(retUsers);
     },
@@ -60,6 +62,11 @@ export const userController = {
             userFind
         );
     },
+
+    add: (req, res, next) => {
+        console.log(req.body);
+        res.end();
+    }
 
 
 }

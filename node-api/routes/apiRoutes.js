@@ -25,3 +25,4 @@ router.get('/params/:company/:username', getTwoParams);
 router.get('/users', userController.getAll);
 // Como hacemos para tener un unico usuario?
 router.get('/users/:id', userController.getOneById);
+router.post('/users', userController.add);
