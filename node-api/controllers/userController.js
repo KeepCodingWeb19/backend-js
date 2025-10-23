@@ -1,4 +1,4 @@
-import users from '../users.json' with { type: 'json' };
+import { users } from '../data/Users.js';
 
 export const userController = {
 
