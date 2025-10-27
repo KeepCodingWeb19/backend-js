@@ -20,6 +20,17 @@ export const todoController = {
             retTodos = retTodos.filter(i => i.completed === completed);
         }
 
+        if ( req.query.userId ) {
+            const userId = parseInt(req.query.userId);
+            if ( isNaN(userId) ) {
+                // next();
+                return res.status(400).json({
+                    error: 'Invalid user id',
+                });
+            }
+            retTodos = retTodos.filter( i => i.userId === userId );
+        }
+
         if ( req.query.limit || req.query.skip ) {
             const limit = parseInt(req.query.limit);
             const skip = parseInt(req.query.skip) || 0;
