@@ -32,3 +32,5 @@ router.post('/users', userController.add);
 router.get('/todos', todoController.getAll);
 router.get('/todos/:id', todoController.getOneById);
 router.post('/todos/', todoController.add);
+router.put('/todos/:id', todoController.update);
+router.delete('/todos/:id', todoController.remove);

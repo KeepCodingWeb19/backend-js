@@ -40,7 +40,7 @@ export const todoController = {
         res.status(200).json(retTodos);
     },
 
-    getOneById: (req, res) => {
+    getOneById: (req, res, next) => {
 
         const id = parseInt(req.params.id);
 
@@ -83,4 +83,43 @@ export const todoController = {
         );
 
     },
+
+    update: (req, res, next) => {
+
+        const id = parseInt(req.params.id);
+
+        const findTodoIdx = todos.findIndex( i => i.id === id );
+
+        if ( findTodoIdx === -1 ) {
+            return next();
+        }
+
+        const updatedTodo = {
+            id: todos[findTodoIdx].id,
+            todo: req.body.todo,
+            completed: req.body.completed || false,
+            userId: req.body.userId
+        };
+
+        todos[findTodoIdx] = updatedTodo;
+
+        res.status(200).json(updatedTodo);
+
+    },
+
+    remove: (req, res, next) => {
+
+        const id = parseInt(req.params.id);
+
+        const findTodoIdx = todos.findIndex( i => i.id === id );
+
+        if ( findTodoIdx === -1 ) {
+            return next();
+        }
+
+        todos.splice(findTodoIdx, 1);
+
+        res.status(200).end();
+
+    }
 };

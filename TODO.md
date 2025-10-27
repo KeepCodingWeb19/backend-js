@@ -21,5 +21,5 @@ Vamos a crear una api para realizar un CRUD (Crear, Leer, Actualizar, Borrar) de
    - `GET /todos/:id`: Devuelve un _todo_ específico por su ID.
    - `POST /todos`: Crea un nuevo _todo_ y lo añade a la lista.
      - Opcionalmente, podemos validar el objeto _todo_ recibido en el cuerpo de la solicitud.
-   - `PUT /todos/:id`: Actualiza un _todo_ existente por su ID.
+   - `PUT /todos/:id`: Reemplaza un _todo_ existente por su ID.
    - `DELETE /todos/:id`: Elimina un _todo_ por su ID.
