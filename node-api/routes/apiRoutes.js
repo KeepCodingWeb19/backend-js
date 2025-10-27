@@ -31,3 +31,4 @@ router.post('/users', userController.add);
 // Todos
 router.get('/todos', todoController.getAll);
 router.get('/todos/:id', todoController.getOneById);
+router.post('/todos/', todoController.add);

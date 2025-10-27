@@ -55,6 +55,32 @@ export const todoController = {
         }
 
         res.status(200).json(todoFind);
-        
-    }
+
+    },
+
+    add: (req, res, next) => {
+
+        const lastId = todos.sort((a, b) => b.id - a.id )[0].id;
+        const nextId = lastId + 1;
+
+        if ( !req.body.todo || !req.body.userId ) {
+            return res.status(400).json({
+                error: 'UserId and todo values are required',
+            });
+        }
+
+        const newTodo = {
+            id: nextId,
+            todo: req.body.todo,
+            completed: req.body.completed || false,
+            userId: req.body.userId
+        };
+
+        todos.push(newTodo);
+
+        res.status(201).json(
+            newTodo
+        );
+
+    },
 };
