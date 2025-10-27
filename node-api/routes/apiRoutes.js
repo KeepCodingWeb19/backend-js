@@ -1,4 +1,5 @@
 import express from 'express';
+import { query } from 'express-validator'; 
 
 // Controllers
 import { healthCall } from '../controllers/healthController.js';
@@ -29,7 +30,22 @@ router.get('/users/:id', userController.getOneById);
 router.post('/users', userController.add);
 
 // Todos
-router.get('/todos', todoController.getAll);
+router.get(
+    '/todos',
+    // Validaciones
+    query('completed', 'Must be a valid boolean')
+    // Si es opcional, lo validara
+    .optional()
+    // Valida a booleano
+    .isBoolean()
+    // Sanitiza a booleano
+    .toBoolean(),
+
+    // TODO: validar skip y limit
+
+    // Controlador
+    todoController.getAll
+);
 router.get('/todos/:id', todoController.getOneById);
 router.post('/todos/', todoController.add);
 router.put('/todos/:id', todoController.update);
