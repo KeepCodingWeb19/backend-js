@@ -35,9 +35,9 @@ export const todoController = {
             retTodos = retTodos.filter( i => i.userId === userId );
         }
 
-        if ( req.query.limit || req.query.skip ) {
-            const limit = parseInt(req.query.limit);
-            const skip = parseInt(req.query.skip) || 0;
+        if ( data.limit || data.skip ) {
+            const limit = data.limit;
+            const skip = data.skip || 0;
             retTodos = retTodos.slice(skip, isNaN(limit) ? undefined : limit + skip );
         }
 
@@ -46,13 +46,17 @@ export const todoController = {
 
     getOneById: (req, res, next) => {
 
-        const id = parseInt(req.params.id);
+        const result = validationResult(req);
+        const data = matchedData(req);
+        console.log({result, data});
 
-        if ( isNaN(id) ) {
-            return next();
+        if ( result.errors.length > 0 ) {
+            return res.status(400).json({
+                errors: result.errors
+            });
         }
 
-        const todoFind = todos.find( i => i.id === id );
+        const todoFind = todos.find( i => i.id === data.id );
 
         if ( !todoFind ) {
             return next();
