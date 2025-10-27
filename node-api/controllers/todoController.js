@@ -39,4 +39,22 @@ export const todoController = {
 
         res.status(200).json(retTodos);
     },
+
+    getOneById: (req, res) => {
+
+        const id = parseInt(req.params.id);
+
+        if ( isNaN(id) ) {
+            return next();
+        }
+
+        const todoFind = todos.find( i => i.id === id );
+
+        if ( !todoFind ) {
+            return next();
+        }
+
+        res.status(200).json(todoFind);
+        
+    }
 };
