@@ -9,5 +9,3 @@ const agentSchema = new Schema({
 });
 
 export const Agent = mongoose.model('Agent', agentSchema);
-
-// TODO: crea un controlador, y una ruta para crear un nuevo agente via /api/agents
