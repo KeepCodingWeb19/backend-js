@@ -1,12 +1,20 @@
 import { validationResult, matchedData } from 'express-validator';
 
+import { dbClient } from '../lib/connectMongo.js';
 import { todos } from '../data/Todos.js';
 
 export const todoController = {
 
-    getAll: (req, res) => {
+    getAll: async (req, res) => {
 
         let retTodos = todos;
+
+        // Obtener de DB
+        console.log(
+            await dbClient.db('nodeapi').listCollections().toArray()
+        )
+        const dbTodos = await dbClient.db().collection('todos').find().toArray();
+        // console.log(dbTodos);
 
         // Express - validator resut
         const result = validationResult(req);
