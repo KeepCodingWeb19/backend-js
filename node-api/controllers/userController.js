@@ -70,11 +70,26 @@ export const userController = {
             email: req.body.email
         });
 
-        const savedUser = await user.save();
+        try {
 
-        console.log(savedUser);
+        
 
-        res.status(201).json(user);
+            const savedUser = await user.save();
+
+            console.log(savedUser);
+
+            res.status(201).json(user);
+        } catch(ex) {
+            if (ex.code && ex.code === 11000) {
+                res.status(400).json({
+                    message: 'Email duplicado'
+                });
+            } else {
+                res.status(500).json({
+                    message: 'Internal Server Error'
+                })
+            }
+        }
     }
 
 
