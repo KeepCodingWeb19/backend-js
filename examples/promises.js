@@ -31,4 +31,37 @@ azar.then(res => {
 })
 .catch(err => {
     console.error(err);
-})
+});
+
+function paso1() {
+    return new Promise((res, rej) => {
+        res('Paso 1 resuelto');
+    });
+};
+
+function paso2() {
+    return Promise.resolve('Paso 2 resuelto');
+};
+
+function paso3() {
+    return Promise.reject('Paso 3 fallo');
+};
+
+paso1()
+    .then(res => {
+        console.log(res);
+        return paso2();
+    })
+    .then(res => {
+        console.log(res);
+        return paso3();
+    })
+    .then(res => {
+        console.log(res);
+    })
+    .catch(err => {
+        console.error('Fatal error: ', err);
+    })
+    .finally(() => {
+        console.log('Flujo finalizado');
+    });
