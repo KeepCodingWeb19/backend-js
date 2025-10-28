@@ -7,20 +7,10 @@ export const todoController = {
 
     getAll: async (req, res) => {
 
-        let retTodos = todos;
-
-        // Obtener de DB
-        console.log(
-            await dbClient.db('nodeapi').listCollections().toArray()
-        )
-        const dbTodos = await dbClient.db().collection('todos').find().toArray();
-        // console.log(dbTodos);
-
         // Express - validator resut
         const result = validationResult(req);
         const data = matchedData(req);
-
-        console.log({ result, data });
+        const filter = {};
 
         if ( !result.isEmpty() ) {
             return res.status(400).json({
@@ -29,20 +19,23 @@ export const todoController = {
         }
 
         if ( data.completed !== undefined ) {
-            retTodos = retTodos.filter( i => i.completed === data.completed );
+            filter.completed = data.completed;
+            // { completed: true / false }
         }
 
         if ( data.userId ) {
-            retTodos = retTodos.filter( i => i.userId === userId );
+            filter.userId = data.userId;
+            // { userId: data.userId }
         }
 
-        if ( data.limit || data.skip ) {
-            const limit = data.limit;
-            const skip = data.skip || 0;
-            retTodos = retTodos.slice(skip, isNaN(limit) ? undefined : limit + skip );
-        }
+        const dbTodos = await dbClient.db().collection('todos')
+            .find(filter)
+            .skip(data.skip || 0)
+            .limit(data.limit || 100)
+            .toArray();
+        // console.log({filter, dbTodos});
 
-        res.status(200).json(retTodos);
+        res.status(200).json(dbTodos);
     },
 
     getOneById: (req, res, next) => {
