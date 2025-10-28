@@ -2,6 +2,9 @@ import express from 'express';
 import morgan from 'morgan';
 import { renderFile } from 'ejs';
 
+// Database
+import { dbClient } from './lib/connectMongo.js';
+
 // Middlewares
 import { filterAdminPath, filterFirefox } from './lib/middlewares/authMiddleware.js';
 import { serverErrorHandler, notFoundErrorHandler } from './lib/middlewares/errorMiddleware.js';
@@ -11,6 +14,10 @@ import { router as webRouter } from './routes/webRoutes.js';
 import { router as apiRouter } from './routes/apiRoutes.js';
 
 const app = express();
+
+// Top level await disponible desde ES2022 en modulos.
+const client = await dbClient.connect();
+console.log(`Connected to MongoDB: ${client.db().databaseName}`);
 
 app.use(express.json());
 
