@@ -47,21 +47,51 @@ function paso3() {
     return Promise.reject('Paso 3 fallo');
 };
 
-paso1()
-    .then(res => {
-        console.log(res);
-        return paso2();
-    })
-    .then(res => {
-        console.log(res);
-        return paso3();
-    })
-    .then(res => {
-        console.log(res);
-    })
-    .catch(err => {
-        console.error('Fatal error: ', err);
-    })
-    .finally(() => {
-        console.log('Flujo finalizado');
-    });
+// paso1()
+//     .then(res => {
+//         console.log(res);
+//         return paso2();
+//     })
+//     .then(res => {
+//         console.log(res);
+//         return paso3();
+//     })
+//     .then(res => {
+//         console.log(res);
+//     })
+//     .catch(err => {
+//         console.error('Fatal error: ', err);
+//     })
+//     .finally(() => {
+//         console.log('Flujo finalizado');
+//     });
+
+Promise.all([
+    paso1(),
+    paso2(),
+    // paso3()
+])
+.then(result => {
+    console.log(result);
+})
+.catch(error => {
+    console.error('Fatal Error: ', error);
+});
+
+Promise.race([
+    saluda, // 1s
+    azar // 2s
+])
+.then(res => {
+    console.log(res)
+})
+.catch(err => {
+    printError(err);
+})
+
+
+
+
+function printError(err) {
+    console.log('Fatal error: ', err);
+}
