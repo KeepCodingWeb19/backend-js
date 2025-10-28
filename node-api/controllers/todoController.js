@@ -14,7 +14,7 @@ export const todoController = {
 
         console.log({ result, data });
 
-        if ( result.errors.length > 0 ) {
+        if ( !result.isEmpty() ) {
             return res.status(400).json({
                 errors: result.errors
             });
@@ -24,14 +24,7 @@ export const todoController = {
             retTodos = retTodos.filter( i => i.completed === data.completed );
         }
 
-        if ( req.query.userId ) {
-            const userId = parseInt(req.query.userId);
-            if ( isNaN(userId) ) {
-                // next();
-                return res.status(400).json({
-                    error: 'Invalid user id',
-                });
-            }
+        if ( data.userId ) {
             retTodos = retTodos.filter( i => i.userId === userId );
         }
 

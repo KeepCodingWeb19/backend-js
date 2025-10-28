@@ -54,7 +54,10 @@ router.get(
         })
         .toInt(),
 
-        // TODO: validar userId
+    query('userId', 'Must be a valid positive number')
+        .optional()
+        .isInt({ min: 1 })
+        .toInt(),
 
     // Controlador
     todoController.getAll
