@@ -71,8 +71,9 @@ export const userController = {
         const user = new User({
             email: req.body.email,
             // password: req.body.password
-            password: await hash(req.body.password, 7),
         });
+
+        user.password = await User.hashPassword(req.body.password);
 
         try {
 
