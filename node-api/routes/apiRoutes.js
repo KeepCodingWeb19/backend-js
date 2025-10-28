@@ -64,7 +64,9 @@ router.get(
 );
 router.get(
     '/todos/:id',
-    param('id').notEmpty().isInt( { min: 1 } ).toInt(),
+    param('id')
+    .notEmpty()
+    .isString(),
 todoController.getOneById);
 router.post('/todos/', todoController.add);
 router.put('/todos/:id', todoController.update);
