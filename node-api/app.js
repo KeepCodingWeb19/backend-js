@@ -45,6 +45,7 @@ app.use((req, res, next) => {
 // Setting Environment
 app.use((req, res, next) => {
     res.locals.env = process.env.NODE_ENV;
+    res.locals.appName = 'NodeApi KC 19';
     next();
 });
 
