@@ -6,7 +6,10 @@ const userSchema = new Schema({
         type: String,
         unique: true
     },
-    password: String
+    password: {
+        type: String,
+        select: false, // Por defecto este campo nunca vendrá en las consultas
+    }
 });
 
 // Método del modelo
