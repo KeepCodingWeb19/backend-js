@@ -1,5 +1,6 @@
 import express from 'express';
 import { loginController } from '../controllers/loginController.js';
+import { guard } from '../lib/middlewares/authMiddleware.js';
 
 export const router = express.Router();
 
@@ -10,12 +11,12 @@ router.get('/welcome', (req, res, next) => {
     `);
 });
 
-router.get('/about', (req, res, next) => {
+router.get('/about', guard, (req, res, next) => {
     // res.status(200).send("Esta es la página acerca de KeepCoding");
     res.render('about.html');
 });
 
-router.get('/', (req, res, next) => {
+router.get('/', guard, (req, res, next) => {
     // const env = process.env.NODE_ENV;
     const now = (new Date()).toLocaleString();
     const lang = process.env.LANG;

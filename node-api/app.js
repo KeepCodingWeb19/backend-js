@@ -7,7 +7,7 @@ import { renderFile } from 'ejs';
 import { connectMongoose } from './lib/connectMongoose.js';
 
 // Middlewares
-import { filterAdminPath, filterFirefox } from './lib/middlewares/authMiddleware.js';
+import { filterAdminPath, filterFirefox, guard } from './lib/middlewares/authMiddleware.js';
 import { serverErrorHandler, notFoundErrorHandler } from './lib/middlewares/errorMiddleware.js';
 
 // Routes
