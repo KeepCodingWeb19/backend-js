@@ -7,7 +7,7 @@ import { renderFile } from 'ejs';
 import { connectMongoose } from './lib/connectMongoose.js';
 
 // Middlewares
-import { filterAdminPath, filterFirefox, guard } from './lib/middlewares/authMiddleware.js';
+import { filterAdminPath, filterFirefox, guard, sessionMiddleware } from './lib/middlewares/authMiddleware.js';
 import { serverErrorHandler, notFoundErrorHandler } from './lib/middlewares/errorMiddleware.js';
 
 // Routes
@@ -72,6 +72,7 @@ app.use((req, res, next) => {
  */
 app.use(filterAdminPath);
 app.use(filterFirefox);
+app.use(sessionMiddleware);
 
 
 

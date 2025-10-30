@@ -1,3 +1,6 @@
+import session from 'express-session';
+
+const INACTIVITY_2_DAYS = 1000 * 60 * 60 * 24 * 2;
 
 // Filtrar todas las peticiones a /admin -> 403
 export function filterAdminPath(req, res, next) {
@@ -20,6 +23,19 @@ export function filterFirefox(req, res, next) {
 
 export function guard(req, res, next) {
     const redirect = req.url;
-    // Si no tenemos sesión, al login
-    return res.redirect(`/login?redir=${redirect}`);
+    if ( !req.session.userId ) {
+        // Si no tenemos sesión, al login
+        return res.redirect(`/login?redir=${redirect}`);
+    };
+    next();
 }
+
+export const sessionMiddleware = session({
+    name: 'nodeapi-session',
+    secret: 'supersecreto',
+    saveUninitialized: true, // Crea una sesión vacía para cada usuario,
+    resave: false,
+    cookie: {
+        maxAge: INACTIVITY_2_DAYS,
+    }
+});

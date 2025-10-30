@@ -27,6 +27,8 @@ export const loginController = {
                 return !res.render('login.html');
             }
 
+            req.session.userId = user.id;
+
             res.redirect('/');
 
         } catch(error) {
