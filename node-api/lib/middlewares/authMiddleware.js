@@ -1,4 +1,5 @@
 import session from 'express-session';
+import ConnectMongo from 'connect-mongo';
 
 const INACTIVITY_2_DAYS = 1000 * 60 * 60 * 24 * 2;
 
@@ -37,5 +38,14 @@ export const sessionMiddleware = session({
     resave: false,
     cookie: {
         maxAge: INACTIVITY_2_DAYS,
-    }
+        // maxAge: 2000,
+    },
+    store: ConnectMongo.create({
+        mongoUrl: process.env.MONGO_URI || 'mongodb://localhost:27017',
+    })
 });
+
+export function sessionInViews(req, res, next) {
+    res.locals.session = req.session;
+    next();
+}

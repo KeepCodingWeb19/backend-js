@@ -46,4 +46,5 @@ router.get('/comming-son', (req, res, next) => {
 
 router.get('/login', loginController.index);
 router.post('/login', loginController.postLogin);
+router.get('/logout', loginController.logout);
 

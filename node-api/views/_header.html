@@ -25,10 +25,13 @@
         <li class="nav-item">
           <a class="nav-link" href="/about">About</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/login">Login</a>
-        </li>
-      </ul>
+        </ul>
+        <% if(!session.userId) { %>
+          <a class="btn btn-success" href="/login">Login</a>
+        <% } else { %>
+          <a class="btn btn-outline-danger" href="/logout">Logout</a>
+        <% } %>
+      
     </div>
   </div>
 </nav>

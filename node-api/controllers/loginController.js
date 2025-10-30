@@ -29,10 +29,21 @@ export const loginController = {
 
             req.session.userId = user.id;
 
-            res.redirect('/');
+            res.redirect( req.query.redir || '/' );
 
         } catch(error) {
             next(error);
         }
+    },
+
+    logout: (req, res, next) => {
+
+        req.session.regenerate((err) => {
+            if (err) {
+                return next(err);
+            }
+            res.redirect('/');
+        });
+
     },
 };
