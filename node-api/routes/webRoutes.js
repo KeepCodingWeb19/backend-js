@@ -11,7 +11,8 @@ router.get('/welcome', (req, res, next) => {
 });
 
 router.get('/about', (req, res, next) => {
-    res.status(200).send("Esta es la página acerca de KeepCoding");
+    // res.status(200).send("Esta es la página acerca de KeepCoding");
+    res.render('about.html');
 });
 
 router.get('/', (req, res, next) => {
