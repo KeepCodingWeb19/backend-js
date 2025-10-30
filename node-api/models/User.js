@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { hash } from 'bcrypt';
+import { compare, hash } from 'bcrypt';
 
 const userSchema = new Schema({
     email: {
@@ -15,6 +15,12 @@ const userSchema = new Schema({
 // Método del modelo
 userSchema.statics.hashPassword = (clearPassword) => {
     return hash(clearPassword, 7);
+};
+
+// Método de instáncia
+// No utilizamos arrow function para no alterar el this de la instáncia
+userSchema.methods.comparePassword = function(plainPassword) {
+    return compare(plainPassword, this.password);
 };
 
 export const User = mongoose.model('User', userSchema);

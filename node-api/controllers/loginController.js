@@ -1,3 +1,5 @@
+import { User } from '../models/User.js';
+import { compare } from 'bcrypt';
 
 export const loginController = {
 
@@ -5,9 +7,25 @@ export const loginController = {
         res.render('login.html');
     },
 
-    postLogin: (req, res, next) => {
-        console.log(req.body);
-        // TODO: Busca si el usuario existe y el password es correcto.
+    postLogin: async (req, res, next) => {
+
+        try {
+
+            // Buscamos el usuario en la base de datos
+            // Forzamos el select de password
+            const user = await User.findOne({
+                email: req.body.email,
+            }).select('+password');
+
+            // Comparar password
+            if (!user || !(await user.comparePassword(req.body.password))) {
+                // Usuario o password incorrecto
+                return !res.render('login.html');
+            }
+
+        } catch(error) {
+            next(error);
+        }
         res.redirect('/');
     },
 };
