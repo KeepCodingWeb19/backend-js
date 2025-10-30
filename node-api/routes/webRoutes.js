@@ -1,4 +1,5 @@
 import express from 'express';
+import { loginController } from '../controllers/loginController.js';
 
 export const router = express.Router();
 
@@ -40,4 +41,7 @@ router.get('/comming-son', (req, res, next) => {
         message: 'We\'re Coming Soon...',
     });
 });
+
+router.get('/login', loginController.index);
+router.post('/login', loginController.postLogin);
 

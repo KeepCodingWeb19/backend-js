@@ -21,6 +21,7 @@ const connection = await connectMongoose();
 console.log(`Connected to MongoDB: ${connection.name}`);
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
