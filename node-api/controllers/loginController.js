@@ -4,6 +4,8 @@ import { compare } from 'bcrypt';
 export const loginController = {
 
     index: (req, res, next) => {
+        res.locals.errors = '';
+        res.locals.email = '';
         res.render('login.html');
     },
 
@@ -20,12 +22,15 @@ export const loginController = {
             // Comparar password
             if (!user || !(await user.comparePassword(req.body.password))) {
                 // Usuario o password incorrecto
+                res.locals.email = req.body.email;
+                res.locals.errors = 'Invalid credentials.';
                 return !res.render('login.html');
             }
+
+            res.redirect('/');
 
         } catch(error) {
             next(error);
         }
-        res.redirect('/');
     },
 };
